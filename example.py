@@ -41,3 +41,4 @@ ws_client = KalshiWebSocketClient(
 
 # Connect via WebSocket
 ws_client.connect()
+ws_client.subscribe_to_tickers()

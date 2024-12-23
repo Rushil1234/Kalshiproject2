@@ -4,6 +4,7 @@ import time
 from typing import Any, Dict, Optional
 from datetime import datetime, timedelta
 from enum import Enum
+import json
 
 from requests.exceptions import HTTPError
 
@@ -182,6 +183,7 @@ class KalshiWebSocketClient(KalshiBaseClient):
         super().__init__(key_id, private_key, environment)
         self.ws = None
         self.url_suffix = "/trade-api/ws/v2"
+        self.message_id = 1  # Add counter for message IDs
 
     def connect(self):
         """Establishes a WebSocket connection using authentication."""
@@ -201,6 +203,19 @@ class KalshiWebSocketClient(KalshiBaseClient):
     def on_open(self, ws):
         """Callback when WebSocket connection is opened."""
         print("WebSocket connection opened.")
+        self.subscribe_to_tickers()
+
+    def subscribe_to_tickers(self):
+        """Subscribe to ticker updates for all markets."""
+        subscription_message = {
+            "id": self.message_id,
+            "cmd": "subscribe",
+            "params": {
+                "channels": ["ticker"]
+            }
+        }
+        self.ws.send(json.dumps(subscription_message))
+        self.message_id += 1
 
     def on_message(self, ws, message):
         """Callback for handling incoming messages."""
