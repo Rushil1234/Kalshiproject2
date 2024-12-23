@@ -1,3 +1,3 @@
 # kalshi-starter-code-python
 
-Example code for HTTP and WS endpoints using api-key authentication. 
+Sample python code for accessing api-authenticated endpoints on [Kalshi](https://kalshi.com) 
