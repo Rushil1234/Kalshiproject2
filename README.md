@@ -1,5 +1,5 @@
 # kalshi-starter-code-python
+Example python code for accessing api-authenticated endpoints on [Kalshi](https://kalshi.com). This is not an SDK. 
 
-Sample python code for accessing api-authenticated endpoints on [Kalshi](https://kalshi.com) 
-
-Install requirements.txt and execute example.py from within the repo. 
+## Installation 
+Install requirements.txt in a virtual enviornment of your choice and execute example.py from within the repo. 
