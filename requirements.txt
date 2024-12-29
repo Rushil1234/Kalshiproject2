@@ -3,5 +3,5 @@ python-dateutil
 cryptography
 urllib3
 python-dotenv
-websocket-client
+websockets
 datetime
