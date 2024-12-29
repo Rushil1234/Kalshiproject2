@@ -12,7 +12,7 @@ from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 from cryptography.exceptions import InvalidSignature
 
-from websocket import WebSocketApp
+import websockets
 
 class Environment(Enum):
     DEMO = "demo"
@@ -185,27 +185,21 @@ class KalshiWebSocketClient(KalshiBaseClient):
         self.url_suffix = "/trade-api/ws/v2"
         self.message_id = 1  # Add counter for message IDs
 
-    def connect(self):
+    async def connect(self):
         """Establishes a WebSocket connection using authentication."""
         host = self.WS_BASE_URL + self.url_suffix
         auth_headers = self.request_headers("GET", self.url_suffix)
-        header_list = [f"{k}: {v}" for k, v in auth_headers.items()]
-        self.ws = WebSocketApp(
-            host,
-            header=header_list,
-            on_open=self.on_open,
-            on_message=self.on_message,
-            on_error=self.on_error,
-            on_close=self.on_close
-        )
-        self.ws.run_forever()
+        async with websockets.connect(host, additional_headers=auth_headers) as websocket:
+            self.ws = websocket
+            await self.on_open()
+            await self.handler()
 
-    def on_open(self, ws):
+    async def on_open(self):
         """Callback when WebSocket connection is opened."""
         print("WebSocket connection opened.")
-        self.subscribe_to_tickers()
+        await self.subscribe_to_tickers()
 
-    def subscribe_to_tickers(self):
+    async def subscribe_to_tickers(self):
         """Subscribe to ticker updates for all markets."""
         subscription_message = {
             "id": self.message_id,
@@ -214,17 +208,27 @@ class KalshiWebSocketClient(KalshiBaseClient):
                 "channels": ["ticker"]
             }
         }
-        self.ws.send(json.dumps(subscription_message))
+        await self.ws.send(json.dumps(subscription_message))
         self.message_id += 1
 
-    def on_message(self, ws, message):
+    async def handler(self):
+        """Handle incoming messages."""
+        try:
+            async for message in self.ws:
+                await self.on_message(message)
+        except websockets.ConnectionClosed as e:
+            await self.on_close(e.code, e.reason)
+        except Exception as e:
+            await self.on_error(e)
+
+    async def on_message(self, message):
         """Callback for handling incoming messages."""
         print("Received message:", message)
 
-    def on_error(self, ws, error):
+    async def on_error(self, error):
         """Callback for handling errors."""
         print("WebSocket error:", error)
 
-    def on_close(self, ws, close_status_code, close_msg):
+    async def on_close(self, close_status_code, close_msg):
         """Callback when WebSocket connection is closed."""
-        print("WebSocket connection closed with code:", close_status_code)
+        print("WebSocket connection closed with code:", close_status_code, "and message:", close_msg)

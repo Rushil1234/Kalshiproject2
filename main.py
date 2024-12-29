@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from cryptography.hazmat.primitives import serialization
+import asyncio
 
 from clients import KalshiHttpClient, KalshiWebSocketClient, Environment
 
@@ -40,5 +41,4 @@ ws_client = KalshiWebSocketClient(
 )
 
 # Connect via WebSocket
-ws_client.connect()
-ws_client.subscribe_to_tickers()
+asyncio.run(ws_client.connect())
