@@ -82,6 +82,26 @@ class KalshiBaseClient:
         except InvalidSignature as e:
             raise ValueError("RSA sign PSS failed") from e
 
+
+    def get_all_markets(self) -> dict:
+        """Fetch all available markets."""
+        endpoint = f"{self.HTTP_BASE_URL}/trades/markets"
+        return self.get(endpoint)
+
+    def place_order(self, market_ticker: str, yes_or_no: str, quantity: int, price: float) -> dict:
+        """Place an order on a Kalshi market."""
+        endpoint = f"{self.HTTP_BASE_URL}/trades/orders"
+        payload = {
+            "ticker": market_ticker,
+            "type": "limit",
+            "side": yes_or_no.lower(),  # 'yes' or 'no'
+            "quantity": quantity,
+            "price": price,
+            "time_in_force": "gtc"
+        }
+        return self.post(endpoint, json=payload)
+
+
 class KalshiHttpClient(KalshiBaseClient):
     """Client for handling HTTP connections to the Kalshi API."""
     def __init__(

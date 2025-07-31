@@ -38,13 +38,22 @@ class KalshiWeatherScanner:
         limit = 100
         cursor = None
         
+        iteration = 0
+        max_iterations = 10  # Limit iterations to prevent excessive fetching
+        
         while True:
-            params = {"status": "open", "limit": limit}
+            logger.info(f"Fetching markets - iteration {iteration}, cursor: {cursor}")
+            # Add category filter to only fetch weather markets
+            params = {"status": "open", "limit": limit, "category": "weather"}
             if cursor:
                 params["cursor"] = cursor
                 
             try:
+                logger.info("Making API call to fetch markets...")
                 markets_response = self.client.get("/trade-api/v2/markets", params=params)
+                logger.info(f"API call completed successfully. Response keys: {list(markets_response.keys()) if isinstance(markets_response, dict) else 'Not a dict'}")
+                markets = markets_response.get('markets', [])
+                logger.info(f"Found {len(markets)} markets in this batch")
             except Exception as e:
                 logger.error(f"Error fetching markets: {e}")
                 break
@@ -54,7 +63,16 @@ class KalshiWeatherScanner:
             
             # Check if there are more markets
             cursor = markets_response.get('cursor')
+            logger.info(f"Current cursor: {cursor}, markets in batch: {len(markets)}, limit: {limit}")
             if not cursor or len(markets) < limit:
+                logger.info("No more markets to fetch, breaking loop")
+                break
+            
+            iteration += 1
+            
+            # Limit iterations to prevent excessive fetching
+            if iteration >= max_iterations:
+                logger.info(f"Reached maximum iterations ({max_iterations}), stopping market fetch")
                 break
         
         philly_weather_markets = []
@@ -67,6 +85,15 @@ class KalshiWeatherScanner:
                     philly_weather_markets.append(parsed_market)
         
         logger.info(f"Found {len(philly_weather_markets)} active Philadelphia weather markets")
+        
+        # DEBUG: Show all markets if no Philly markets found
+        if len(philly_weather_markets) == 0:
+            logger.info("No Philadelphia markets found. Showing all markets for debugging:")
+            for i, market in enumerate(all_markets[:20]):  # Show first 20 markets
+                title = market.get('title', 'N/A')
+                ticker = market.get('ticker', 'N/A')
+                category = market.get('category', 'N/A')
+                logger.info(f"  {i+1}. {ticker} - {title} (Category: {category})")
         
         # Save to CSV for later analysis
         if philly_weather_markets:

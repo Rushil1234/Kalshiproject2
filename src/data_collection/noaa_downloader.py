@@ -9,6 +9,7 @@ import pandas as pd
 from typing import Dict, List, Optional
 from datetime import datetime, timedelta
 import json
+import time
 
 from config import TARGET_CITIES, NOAA_API_TOKEN_ENV_VAR
 
@@ -60,12 +61,17 @@ class NOAADownloader:
         
         while True:
             data_chunk = self._fetch_noaa_data(station_id, start_date, end_date, offset, limit)
+            logger.debug(f"Fetched data chunk: {data_chunk is not None}, length: {len(data_chunk) if data_chunk is not None else 'N/A'}")
             if data_chunk is not None and len(data_chunk) > 0:
                 all_data.extend(data_chunk)
+                logger.debug(f"Extended all_data, new length: {len(all_data)}")
                 if len(data_chunk) < limit:
+                    logger.debug("Reached end of data, breaking loop")
                     break  # No more data
                 offset += limit
+                logger.debug(f"Updating offset to: {offset}")
             else:
+                logger.debug("No data chunk or empty chunk, breaking loop")
                 break
         
         if all_data:
@@ -110,23 +116,35 @@ class NOAADownloader:
             "includemetadata": "false"
         }
         
-        try:
-            logger.debug(f"Fetching NOAA data from {url} with params: {params}")
-            logger.debug(f"Using headers: {self.headers}")
-            response = requests.get(url, headers=self.headers, params=params, timeout=30)
-            logger.debug(f"Response status code: {response.status_code}")
-            logger.debug(f"Response headers: {dict(response.headers)}")
-            if response.status_code != 200:
-                logger.debug(f"Response content: {response.text}")
-            response.raise_for_status()
-            data = response.json()
-            return data.get('results', [])
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Error fetching NOAA data: {e}")
-            return None
-        except Exception as e:
-            logger.error(f"Error fetching NOAA data: {e}")
-            return None
+        # Add retry logic for NOAA API calls
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                logger.debug(f"Fetching NOAA data from {url} with params: {params}")
+                logger.debug(f"Using headers: {self.headers}")
+                # Reduce timeout and add retry logic
+                response = requests.get(url, headers=self.headers, params=params, timeout=15)
+                logger.debug(f"Response status code: {response.status_code}")
+                logger.debug(f"Response headers: {dict(response.headers)}")
+                if response.status_code != 200:
+                    logger.debug(f"Response content: {response.text}")
+                response.raise_for_status()
+                data = response.json()
+                return data.get('results', [])
+            except requests.exceptions.Timeout as e:
+                logger.warning(f"NOAA API timeout on attempt {attempt + 1}/{max_retries}: {e}")
+                if attempt < max_retries - 1:
+                    time.sleep(2 ** attempt)  # Exponential backoff
+                    continue
+                else:
+                    logger.error(f"NOAA API timeout after {max_retries} attempts: {e}")
+                    return None
+            except requests.exceptions.RequestException as e:
+                logger.error(f"Error fetching NOAA data: {e}")
+                return None
+            except Exception as e:
+                logger.error(f"Error fetching NOAA data: {e}")
+                return None
     
     def _process_noaa_data(self, data: List[Dict]) -> pd.DataFrame:
         """

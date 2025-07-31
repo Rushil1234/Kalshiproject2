@@ -1,0 +1,17 @@
+2025-07-31 22:21:31,541 - INFO - Starting live trading...
+Traceback (most recent call last):
+  File "C:\Users\sdevp\Kalshiproject2\main.py", line 174, in <module>
+    main()
+  File "C:\Users\sdevp\Kalshiproject2\main.py", line 170, in main
+    run_trading(client)
+  File "C:\Users\sdevp\Kalshiproject2\main.py", line 142, in run_trading
+    from src.trading.trader import run_trading_loop
+  File "C:\Users\sdevp\Kalshiproject2\src\trading\trader.py", line 17, in <module>
+    from src.modeling.predictor import WeatherPredictor
+  File "C:\Users\sdevp\Kalshiproject2\src\modeling\__init__.py", line 1, in <module>
+    from .train_weather_model import train_weather_model
+  File "C:\Users\sdevp\Kalshiproject2\src\modeling\train_weather_model.py", line 9, in <module>
+    from src.modeling.trainer import WeatherModelTrainer
+  File "C:\Users\sdevp\Kalshiproject2\src\modeling\trainer.py", line 12, in <module>
+    import xgboost as xgb
+ModuleNotFoundError: No module named 'xgboost'

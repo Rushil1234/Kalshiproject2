@@ -1,0 +1,27 @@
+2025-07-31 22:17:45,947 - __main__ - INFO - Debugging NOAA data fetching...
+2025-07-31 22:17:47,149 - src.data_collection.noaa_downloader - INFO - NOAA API token loaded: PZgbYnOwDv...
+2025-07-31 22:17:47,150 - __main__ - INFO - Successfully initialized NOAA downloader
+2025-07-31 22:17:47,151 - __main__ - INFO - Attempting to download data for 2025-07-25 to 2025-07-31
+2025-07-31 22:17:47,151 - src.data_collection.noaa_downloader - INFO - Downloading historical data for Philadelphia from 2025-07-25 to 2025-07-31
+2025-07-31 22:17:47,152 - src.data_collection.noaa_downloader - INFO - Using station ID: GHCND:USW00013739
+2025-07-31 22:17:47,153 - src.data_collection.noaa_downloader - DEBUG - Fetching NOAA data from https://www.ncei.noaa.gov/cdo-web/api/v2/data with params: {'datasetid': 'GHCND', 'stationid': 'GHCND:USW00013739', 'startdate': '2025-07-25', 'enddate': '2025-07-31', 'datatypeid': 'TMAX,TMIN,PRCP', 'limit': 1000, 'offset': 0, 'units': 'metric', 'includemetadata': 'false'}
+2025-07-31 22:17:47,153 - src.data_collection.noaa_downloader - DEBUG - Using headers: {'token': 'PZgbYnOwDvdWXAkXBNfJjnbjHfeROsyM'}
+2025-07-31 22:17:47,156 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.ncei.noaa.gov:443
+2025-07-31 22:17:49,248 - urllib3.connectionpool - DEBUG - https://www.ncei.noaa.gov:443 "GET /cdo-web/api/v2/data?datasetid=GHCND&stationid=GHCND%3AUSW00013739&startdate=2025-07-25&enddate=2025-07-31&datatypeid=TMAX%2CTMIN%2CPRCP&limit=1000&offset=0&units=metric&includemetadata=false HTTP/1.1" 200 None
+2025-07-31 22:17:49,249 - src.data_collection.noaa_downloader - DEBUG - Response status code: 200
+2025-07-31 22:17:49,249 - src.data_collection.noaa_downloader - DEBUG - Response headers: {'Date': 'Thu, 31 Jul 2025 16:47:48 GMT', 'Server': 'Apache', 'Strict-Transport-Security': 'max-age=31536000', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET', 'Access-Control-Allow-Headers': 'token', 'Content-Type': 'application/json', 'Connection': 'close', 'Transfer-Encoding': 'chunked'}
+2025-07-31 22:17:49,251 - src.data_collection.noaa_downloader - DEBUG - Fetched data chunk: True, length: 9
+2025-07-31 22:17:49,252 - src.data_collection.noaa_downloader - DEBUG - Extended all_data, new length: 9
+2025-07-31 22:17:49,252 - src.data_collection.noaa_downloader - DEBUG - Reached end of data, breaking loop
+2025-07-31 22:17:49,289 - src.data_collection.noaa_downloader - INFO - Successfully downloaded 3 records for Philadelphia
+2025-07-31 22:17:49,294 - src.data_collection.noaa_downloader - INFO - Saved NOAA data to data/noaa_philly_2025-07-25_to_2025-07-31.csv
+2025-07-31 22:17:49,295 - __main__ - INFO - Successfully downloaded NOAA data with 3 records
+2025-07-31 22:17:49,295 - __main__ - INFO - Data columns: ['date', 'precipitation', 'max_temp', 'min_temp', 'temp_range', 'above_80F', 'above_90F', 'above_95F', 'above_98F']
+2025-07-31 22:17:49,306 - __main__ - INFO - First few rows:
+datatype       date  ...  above_98F
+0        2025-07-25  ...          0
+1        2025-07-26  ...          0
+2        2025-07-27  ...          0
+
+[3 rows x 9 columns]
+2025-07-31 22:17:49,306 - __main__ - INFO - NOAA debug test completed successfully!

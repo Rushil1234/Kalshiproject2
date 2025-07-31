@@ -1,0 +1,153 @@
+2025-07-31 22:49:28,417 - INFO - Starting live trading...
+2025-07-31 22:49:31,989 - INFO - Starting live trading loop
+2025-07-31 22:49:35,900 - INFO - Current portfolio balance: $960.50
+2025-07-31 22:49:35,901 - INFO - Trading iteration 1
+2025-07-31 22:49:35,901 - INFO - Scanning for active Philadelphia weather markets...
+2025-07-31 22:49:35,901 - INFO - Fetching markets - iteration 0, cursor: None
+2025-07-31 22:49:35,901 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:37,140 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:37,140 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:37,140 - INFO - Current cursor: CgwIw8aqxAYQ2NOv9QESG0tYTkZMVE9UQUwtMjVTRVAyMkRFVEJBTC00MQ, markets in batch: 100, limit: 100
+2025-07-31 22:49:37,140 - INFO - Fetching markets - iteration 1, cursor: CgwIw8aqxAYQ2NOv9QESG0tYTkZMVE9UQUwtMjVTRVAyMkRFVEJBTC00MQ
+2025-07-31 22:49:37,141 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:38,407 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:38,407 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:38,407 - INFO - Current cursor: CgwIwcaqxAYQiOPcqAISH0tYTkZMU1BSRUFELTI1U0VQMjJERVRCQUwtQkFMNDA, markets in batch: 100, limit: 100
+2025-07-31 22:49:38,407 - INFO - Fetching markets - iteration 2, cursor: CgwIwcaqxAYQiOPcqAISH0tYTkZMU1BSRUFELTI1U0VQMjJERVRCQUwtQkFMNDA
+2025-07-31 22:49:38,407 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:39,530 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:39,531 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:39,531 - INFO - Current cursor: CgsIvsaqxAYQqNCyChIaS1hORkxUT1RBTC0yNVNFUDIxS0NOWUctMjQ, markets in batch: 100, limit: 100
+2025-07-31 22:49:39,531 - INFO - Fetching markets - iteration 3, cursor: CgsIvsaqxAYQqNCyChIaS1hORkxUT1RBTC0yNVNFUDIxS0NOWUctMjQ
+2025-07-31 22:49:39,531 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:40,370 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:40,370 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:40,370 - INFO - Current cursor: CgwIu8aqxAYQ0MeumQMSHUtYTkZMU1BSRUFELTI1U0VQMjFLQ05ZRy1LQzIz, markets in batch: 100, limit: 100
+2025-07-31 22:49:40,370 - INFO - Fetching markets - iteration 4, cursor: CgwIu8aqxAYQ0MeumQMSHUtYTkZMU1BSRUFELTI1U0VQMjFLQ05ZRy1LQzIz
+2025-07-31 22:49:40,370 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:41,285 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:41,285 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:41,285 - INFO - Current cursor: CgwItsaqxAYQkLeNlwESHktYTkZMU1BSRUFELTI1U0VQMjFEQUxDSEktREFMOA, markets in batch: 100, limit: 100
+2025-07-31 22:49:41,285 - INFO - Fetching markets - iteration 5, cursor: CgwItsaqxAYQkLeNlwESHktYTkZMU1BSRUFELTI1U0VQMjFEQUxDSEktREFMOA
+2025-07-31 22:49:41,285 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:42,084 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:42,084 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:42,084 - INFO - Current cursor: CgwIssaqxAYQqNqU_AISGktYTkZMVE9UQUwtMjVTRVAyMUFSSVNGLTgw, markets in batch: 100, limit: 100
+2025-07-31 22:49:42,086 - INFO - Fetching markets - iteration 6, cursor: CgwIssaqxAYQqNqU_AISGktYTkZMVE9UQUwtMjVTRVAyMUFSSVNGLTgw
+2025-07-31 22:49:42,086 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:42,929 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:42,929 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:42,929 - INFO - Current cursor: CgwIsMaqxAYQuMeSvwMSHUtYTkZMU1BSRUFELTI1U0VQMjFBUklTRi1TRjM1, markets in batch: 100, limit: 100
+2025-07-31 22:49:42,929 - INFO - Fetching markets - iteration 7, cursor: CgwIsMaqxAYQuMeSvwMSHUtYTkZMU1BSRUFELTI1U0VQMjFBUklTRi1TRjM1
+2025-07-31 22:49:42,929 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:43,992 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:43,992 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:43,992 - INFO - Current cursor: CgwIrcaqxAYQkNPn5QESGktYTkZMVE9UQUwtMjVTRVAyMU5PU0VBLTYz, markets in batch: 100, limit: 100
+2025-07-31 22:49:43,993 - INFO - Fetching markets - iteration 8, cursor: CgwIrcaqxAYQkNPn5QESGktYTkZMVE9UQUwtMjVTRVAyMU5PU0VBLTYz
+2025-07-31 22:49:43,993 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:45,013 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:45,013 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:45,013 - INFO - Current cursor: CgwIqsaqxAYQuJ2LxgMSHktYTkZMU1BSRUFELTI1U0VQMjFOT1NFQS1TRUExOA, markets in batch: 100, limit: 100
+2025-07-31 22:49:45,013 - INFO - Fetching markets - iteration 9, cursor: CgwIqsaqxAYQuJ2LxgMSHktYTkZMU1BSRUFELTI1U0VQMjFOT1NFQS1TRUExOA
+2025-07-31 22:49:45,013 - INFO - Making API call to fetch markets...
+2025-07-31 22:49:46,348 - INFO - API call completed successfully. Response keys: ['markets', 'cursor']
+2025-07-31 22:49:46,348 - INFO - Found 100 markets in this batch
+2025-07-31 22:49:46,348 - INFO - Current cursor: CgwIp8aqxAYQoNfysgESG0tYTkZMVE9UQUwtMjVTRVAyMURFTkxBQy00Ng, markets in batch: 100, limit: 100
+2025-07-31 22:49:46,348 - INFO - Reached maximum iterations (10), stopping market fetch
+2025-07-31 22:49:46,351 - INFO - Found 6 active Philadelphia weather markets
+2025-07-31 22:49:46,359 - INFO - Saved Philadelphia market data to data/kalshi_philly_markets_20250731_224946.csv
+2025-07-31 22:49:46,360 - INFO - Analyzing market: KXHIGHPHIL-25AUG01-T77
+2025-07-31 22:49:46,361 - INFO - NOAA API token loaded: PZgbYnOwDv...
+2025-07-31 22:49:46,361 - INFO - Downloading historical data for Philadelphia from 2025-07-24 to 2025-07-31
+2025-07-31 22:49:46,361 - INFO - Using station ID: GHCND:USW00013739
+2025-07-31 22:49:47,307 - INFO - Successfully downloaded 4 records for Philadelphia
+2025-07-31 22:49:47,312 - INFO - Saved NOAA data to data/noaa_philly_2025-07-24_to_2025-07-31.csv
+2025-07-31 22:49:47,312 - INFO - Generating Philadelphia weather features...
+2025-07-31 22:49:47,351 - INFO - Generating target variables...
+2025-07-31 22:49:47,351 - INFO - Generating placeholder targets for backtesting...
+2025-07-31 22:49:47,361 - INFO - Saved features to data/philly_features_20250731_224947.csv
+2025-07-31 22:49:47,362 - INFO - Generated 60 features for 4 records
+2025-07-31 22:49:47,365 - INFO - Using model: models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+C:\Users\sdevp\Kalshiproject2\kalshi_venv\Lib\site-packages\xgboost\core.py:158: UserWarning: [22:49:47] WARNING: C:\buildkite-agent\builds\buildkite-windows-cpu-autoscaling-group-i-0c55ff5f71b100e98-1\xgboost\xgboost-ci-windows\src\data\../common/error_msg.h:80: If you are loading a serialized model (like pickle in Python, RDS in R) or
+configuration generated by an older version of XGBoost, please export the model by calling
+`Booster.save_model` from that version first, then load it back in current version. See:
+
+    https://xgboost.readthedocs.io/en/stable/tutorials/saving_model.html
+
+for more details about differences between saving model and serializing.
+
+  warnings.warn(smsg, UserWarning)
+2025-07-31 22:49:47,382 - INFO - XGBoost model loaded from models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:48,345 - INFO - Market KXHIGHPHIL-25AUG01-T77 is not active, skipping
+2025-07-31 22:49:48,345 - INFO - Analyzing market: KXHIGHPHIL-25AUG01-T70
+2025-07-31 22:49:48,345 - INFO - NOAA API token loaded: PZgbYnOwDv...
+2025-07-31 22:49:48,346 - INFO - Downloading historical data for Philadelphia from 2025-07-24 to 2025-07-31
+2025-07-31 22:49:48,346 - INFO - Using station ID: GHCND:USW00013739
+2025-07-31 22:49:49,371 - INFO - Successfully downloaded 4 records for Philadelphia
+2025-07-31 22:49:49,375 - INFO - Saved NOAA data to data/noaa_philly_2025-07-24_to_2025-07-31.csv
+2025-07-31 22:49:49,375 - INFO - Generating Philadelphia weather features...
+2025-07-31 22:49:49,408 - INFO - Generating target variables...
+2025-07-31 22:49:49,408 - INFO - Generating placeholder targets for backtesting...
+2025-07-31 22:49:49,413 - INFO - Saved features to data/philly_features_20250731_224949.csv
+2025-07-31 22:49:49,413 - INFO - Generated 60 features for 4 records
+2025-07-31 22:49:49,414 - INFO - Using model: models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:49,420 - INFO - XGBoost model loaded from models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:49,990 - INFO - Market KXHIGHPHIL-25AUG01-T70 is not active, skipping
+2025-07-31 22:49:49,991 - INFO - Analyzing market: KXHIGHPHIL-25AUG01-B76.5
+2025-07-31 22:49:49,991 - INFO - NOAA API token loaded: PZgbYnOwDv...
+2025-07-31 22:49:49,991 - INFO - Downloading historical data for Philadelphia from 2025-07-24 to 2025-07-31
+2025-07-31 22:49:49,991 - INFO - Using station ID: GHCND:USW00013739
+2025-07-31 22:49:50,978 - INFO - Successfully downloaded 4 records for Philadelphia
+2025-07-31 22:49:50,982 - INFO - Saved NOAA data to data/noaa_philly_2025-07-24_to_2025-07-31.csv
+2025-07-31 22:49:50,982 - INFO - Generating Philadelphia weather features...
+2025-07-31 22:49:51,020 - INFO - Generating target variables...
+2025-07-31 22:49:51,020 - INFO - Generating placeholder targets for backtesting...
+2025-07-31 22:49:51,026 - INFO - Saved features to data/philly_features_20250731_224951.csv
+2025-07-31 22:49:51,026 - INFO - Generated 60 features for 4 records
+2025-07-31 22:49:51,027 - INFO - Using model: models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:51,046 - INFO - XGBoost model loaded from models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:52,030 - INFO - Market KXHIGHPHIL-25AUG01-B76.5 is not active, skipping
+2025-07-31 22:49:52,030 - INFO - Analyzing market: KXHIGHPHIL-25AUG01-B74.5
+2025-07-31 22:49:52,031 - INFO - NOAA API token loaded: PZgbYnOwDv...
+2025-07-31 22:49:52,031 - INFO - Downloading historical data for Philadelphia from 2025-07-24 to 2025-07-31
+2025-07-31 22:49:52,031 - INFO - Using station ID: GHCND:USW00013739
+2025-07-31 22:49:52,970 - INFO - Successfully downloaded 4 records for Philadelphia
+2025-07-31 22:49:52,973 - INFO - Saved NOAA data to data/noaa_philly_2025-07-24_to_2025-07-31.csv
+2025-07-31 22:49:52,974 - INFO - Generating Philadelphia weather features...
+2025-07-31 22:49:53,006 - INFO - Generating target variables...
+2025-07-31 22:49:53,006 - INFO - Generating placeholder targets for backtesting...
+2025-07-31 22:49:53,013 - INFO - Saved features to data/philly_features_20250731_224953.csv
+2025-07-31 22:49:53,013 - INFO - Generated 60 features for 4 records
+2025-07-31 22:49:53,014 - INFO - Using model: models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:53,019 - INFO - XGBoost model loaded from models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:53,594 - INFO - Market KXHIGHPHIL-25AUG01-B74.5 is not active, skipping
+2025-07-31 22:49:53,594 - INFO - Analyzing market: KXHIGHPHIL-25AUG01-B72.5
+2025-07-31 22:49:53,594 - INFO - NOAA API token loaded: PZgbYnOwDv...
+2025-07-31 22:49:53,594 - INFO - Downloading historical data for Philadelphia from 2025-07-24 to 2025-07-31
+2025-07-31 22:49:53,594 - INFO - Using station ID: GHCND:USW00013739
+2025-07-31 22:49:54,567 - INFO - Successfully downloaded 4 records for Philadelphia
+2025-07-31 22:49:54,569 - INFO - Saved NOAA data to data/noaa_philly_2025-07-24_to_2025-07-31.csv
+2025-07-31 22:49:54,569 - INFO - Generating Philadelphia weather features...
+2025-07-31 22:49:54,580 - INFO - Generating target variables...
+2025-07-31 22:49:54,580 - INFO - Generating placeholder targets for backtesting...
+2025-07-31 22:49:54,583 - INFO - Saved features to data/philly_features_20250731_224954.csv
+2025-07-31 22:49:54,583 - INFO - Generated 60 features for 4 records
+2025-07-31 22:49:54,583 - INFO - Using model: models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:54,586 - INFO - XGBoost model loaded from models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:55,260 - INFO - Market KXHIGHPHIL-25AUG01-B72.5 is not active, skipping
+2025-07-31 22:49:55,260 - INFO - Analyzing market: KXHIGHPHIL-25AUG01-B70.5
+2025-07-31 22:49:55,260 - INFO - NOAA API token loaded: PZgbYnOwDv...
+2025-07-31 22:49:55,260 - INFO - Downloading historical data for Philadelphia from 2025-07-24 to 2025-07-31
+2025-07-31 22:49:55,260 - INFO - Using station ID: GHCND:USW00013739
+2025-07-31 22:49:56,171 - INFO - Successfully downloaded 4 records for Philadelphia
+2025-07-31 22:49:56,173 - INFO - Saved NOAA data to data/noaa_philly_2025-07-24_to_2025-07-31.csv
+2025-07-31 22:49:56,173 - INFO - Generating Philadelphia weather features...
+2025-07-31 22:49:56,189 - INFO - Generating target variables...
+2025-07-31 22:49:56,189 - INFO - Generating placeholder targets for backtesting...
+2025-07-31 22:49:56,192 - INFO - Saved features to data/philly_features_20250731_224956.csv
+2025-07-31 22:49:56,192 - INFO - Generated 60 features for 4 records
+2025-07-31 22:49:56,193 - INFO - Using model: models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:56,197 - INFO - XGBoost model loaded from models\philly_weather_xgb_target_high_temp_yes_20250731_011600.joblib
+2025-07-31 22:49:56,840 - INFO - Market KXHIGHPHIL-25AUG01-B70.5 is not active, skipping
+2025-07-31 22:49:56,840 - INFO - Waiting 5 minutes before next trading iteration
+

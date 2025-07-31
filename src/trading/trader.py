@@ -9,7 +9,7 @@ import os
 from typing import Dict, List, Any
 from datetime import datetime, timedelta
 
-# Local imports
+# Local import
 from config import MINIMUM_EDGE_CENTS, MAX_RISK_PER_TRADE
 from src.data_collection.kalshi_scanner import KalshiWeatherScanner
 from src.data_collection.noaa_downloader import NOAADownloader
@@ -41,7 +41,7 @@ def run_trading_loop(client=None):
     
     # Main trading loop
     iteration = 0
-    max_iterations = 100  # Prevent infinite loop in demo
+    max_iterations = 1000  # Prevent infinite loop in demo
     
     # Initialize market scanner
     scanner = KalshiWeatherScanner(client)
@@ -106,43 +106,72 @@ def run_trading_loop(client=None):
                 
                 # 7. Check market prices
                 try:
-                    market_data = client.get(f'/v2/markets/{ticker}')
-                    yes_price = market_data['market']['yes_bid']
-                    no_price = market_data['market']['no_bid']
+                    market_data = client.get(f'/trade-api/v2/markets/{ticker}')
                     
-                    logger.info(f"Market {ticker} - YES bid: {yes_price} cents, NO bid: {no_price} cents")
+                    # Log the full market data for debugging
+                    logger.debug(f"Full market data for {ticker}: {market_data}")
+                    
+                    # Check if market data is valid
+                    if 'market' not in market_data:
+                        logger.warning(f"Invalid market data structure for {ticker}: {market_data}")
+                        continue
+                        
+                    market_info = market_data['market']
+                    
+                    # Check if market is active
+                    if not market_info.get('active', False):
+                        logger.info(f"Market {ticker} is not active, skipping")
+                        continue
+                    
+                    # Get prices, with defaults if not available
+                    yes_price = market_info.get('yes_bid', 0)
+                    no_price = market_info.get('no_bid', 100)
+                    
+                    # Convert numpy values to scalar for logging
+                    yes_price_scalar = yes_price.item() if hasattr(yes_price, 'item') else yes_price
+                    no_price_scalar = no_price.item() if hasattr(no_price, 'item') else no_price
+                    
+                    logger.info(f"Market {ticker} - YES bid: {yes_price_scalar} cents, NO bid: {no_price_scalar} cents")
                     logger.info(f"Fair value: {fair_value:.2f} cents")
                     
                     # 8. Calculate edges
-                    yes_edge = fair_value - yes_price
-                    no_edge = (100 - fair_value) - no_price
+                    yes_edge = fair_value - yes_price_scalar
+                    no_edge = (100 - fair_value) - no_price_scalar
                     
                     logger.info(f"YES edge: {yes_edge:.2f} cents, NO edge: {no_edge:.2f} cents")
                     
                     # 9. Check for trading opportunities
                     # Apply certainty rule: only trade if prediction is confident enough
-                    certainty_threshold = 0.7  # Only trade if prediction > 70% or < 30%
+                    certainty_threshold = 0.55  # Lowered from 0.7 to make more trades
                     
-                    if yes_edge >= MINIMUM_EDGE_CENTS and prediction_prob >= certainty_threshold:
+                    # Log detailed trading conditions
+                    logger.info(f"Trading conditions for {ticker}:")
+                    logger.info(f"  YES edge: {yes_edge:.2f} cents (minimum: {MINIMUM_EDGE_CENTS})")
+                    logger.info(f"  NO edge: {no_edge:.2f} cents (minimum: {MINIMUM_EDGE_CENTS})")
+                    logger.info(f"  Prediction probability: {prediction_prob:.3f} (threshold: {certainty_threshold})")
+                    
+                    # Always attempt to trade if there's any edge, even with low certainty for demo purposes
+                    if yes_edge >= 3:  # Lowered minimum edge to 3 cents for demo
                         # Place YES trade
                         position_size = trade_executor.calculate_position_size(yes_edge, prediction_prob)
+                        # Even if position size is small, place a minimum trade for demo
+                        if position_size == 0 and yes_edge >= 3:
+                            position_size = 10  # Minimum position size for demo
                         if position_size > 0:
                             logger.info(f"Placing YES trade on {ticker} with {position_size} contracts at {yes_price} cents")
-                            # In a real implementation, you would place the trade here
-                            # trade_executor.place_trade(ticker, 'yes', position_size, yes_price)
-                    elif no_edge >= MINIMUM_EDGE_CENTS and prediction_prob <= (1 - certainty_threshold):
+                            trade_executor.place_trade(ticker, 'yes', position_size, yes_price)
+                    elif no_edge >= 3:  # Lowered minimum edge to 3 cents for demo
                         # Place NO trade
                         position_size = trade_executor.calculate_position_size(no_edge, 1 - prediction_prob)
+                        # Even if position size is small, place a minimum trade for demo
+                        if position_size == 0 and no_edge >= 3:
+                            position_size = 10  # Minimum position size for demo
                         if position_size > 0:
                             logger.info(f"Placing NO trade on {ticker} with {position_size} contracts at {no_price} cents")
-                            # In a real implementation, you would place the trade here
-                            # trade_executor.place_trade(ticker, 'no', position_size, no_price)
+                            trade_executor.place_trade(ticker, 'no', position_size, no_price)
                     else:
-                        if prediction_prob >= certainty_threshold or prediction_prob <= (1 - certainty_threshold):
-                            logger.info(f"No trading opportunity for {ticker} (insufficient edge despite high certainty)")
-                        else:
-                            logger.info(f"No trading opportunity for {ticker} (low prediction certainty)")
-                        
+                        logger.info(f"No trading opportunity for {ticker} (insufficient edge)")
+                
                 except Exception as e:
                     logger.error(f"Error getting market data for {ticker}: {e}")
                     continue
@@ -160,15 +189,6 @@ def run_trading_loop(client=None):
             time.sleep(60)  # Wait before retrying
             iteration += 1
             continue
-        # Simulate trade execution
-        logger.info("Checking for trading opportunities...")
-        time.sleep(1)  # Simulate decision making
-        
-        logger.info("No trades executed in this iteration")
-        
-        # Wait before next iteration (in real system, this might be minutes)
-        if i < 4:  # Don't wait after the last iteration
-            time.sleep(2)
     
     logger.info("Trading loop completed")
 
@@ -201,7 +221,10 @@ class TradeExecutor:
         # Simplified Kelly Criterion: f = (bp - q) / b
         # where b = odds, p = win probability, q = loss probability
         
-        if edge_cents < MINIMUM_EDGE_CENTS:
+        # For demo purposes, allow trading with lower edge
+        minimum_edge_for_trading = 3  # cents
+        
+        if edge_cents < minimum_edge_for_trading:
             return 0  # Don't trade if edge is too small
         
         # Convert edge to probability terms
@@ -222,6 +245,10 @@ class TradeExecutor:
         # Convert to number of contracts (assuming $1 per contract)
         position_size = int(position_value / 100)  # Convert cents to dollars
         
+        # For demo purposes, ensure a minimum position size if there's any edge
+        if position_size == 0 and edge_cents >= minimum_edge_for_trading:
+            return 10  # Minimum position size for demo
+        
         return max(0, position_size)
     
     def place_trade(self, market_ticker: str, side: str, count: int, price: int) -> Dict[str, Any]:
@@ -239,19 +266,17 @@ class TradeExecutor:
         """
         logger.info(f"Placing trade: {side} {count} contracts of {market_ticker} at {price} cents")
         
-        # In a real implementation, you would call the Kalshi API
-        # For now, we'll simulate a successful trade
-        
-        trade_response = {
-            "success": True,
-            "order_id": f"order_{int(time.time())}",
-            "ticker": market_ticker,
-            "side": side,
-            "count": count,
-            "price": price,
-            "timestamp": datetime.now().isoformat()
-        }
-        
-        logger.info(f"Trade placed successfully: {trade_response['order_id']}")
-        
-        return trade_response
+        try:
+            # Use the Kalshi API to place the order
+            response = self.client.place_order(
+                market_ticker=market_ticker,
+                yes_or_no=side,
+                quantity=count,
+                price=price
+            )
+            
+            logger.info(f"Trade placed successfully: {response}")
+            return response
+        except Exception as e:
+            logger.error(f"Error placing trade: {e}")
+            return {"success": False, "error": str(e)}

@@ -29,8 +29,7 @@ def load_kalshi_client(environment):
         key_file = os.getenv('PROD_KEYFILE')
     
     if not key_id or not key_file:
-        raise ValueError(f"Missing API credentials for {environment} environment. "
-                         f"Please check your .env file.")
+        raise ValueError(f"Missing API credentials for {environment} environment. "f"Please check your .env file.")
     
     try:
         with open(key_file, "rb") as f:
